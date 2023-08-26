@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, CommandInteraction, PermissionFlagsBits} = require('discord.js');
 
+
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("ping")
@@ -7,6 +8,6 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator), //only for admin users
     
     execute(interaction){
-        interaction.reply({content: "Pong", ephemeral: true}) // ephemeral means only visible for yourself.
+        interaction.reply({content: "Pong", ephemeral: false}) // ephemeral means only visible for yourself.
     },
 };
