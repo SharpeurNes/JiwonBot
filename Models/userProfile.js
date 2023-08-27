@@ -7,8 +7,16 @@ const userProfileModel = new Schema({
     },
     balance: {
         type: Number,
-        default: 0
-    }
+        default: 0,
+    },
+    lastDaily: {
+        type: Date,
+        delfault: null,
+    },
+    preference: {
+        type: String,
+        default: "AK"
+    },
 });
 
 module.exports = model('userProfile', userProfileModel);
