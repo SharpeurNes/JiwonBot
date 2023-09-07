@@ -10,9 +10,10 @@ module.exports = {
         const embedHelp = new EmbedBuilder()
         .setColor("Blue")
         .setAuthor({name: "Jiwon Help Center", iconURL: client.user.displayAvatarURL()})
-        .addFields({name: "Game Commands 🎮", value: "> `register` `drop` `gacha` `inventory` `collection`"})
-        .addFields({name: "Community Commands 💞", value: "> `profile` `setflag` `inventory` `collection`"})
-        .addFields({name: "Utils Commands ✔️", value: "> `help` `support` `rules` `vote`"})
+        .addFields({name: "Common / Basic 🎮", value: "> `register` `daily` `wallet` `preference` `gacha`"})
+        .addFields({name: "Collection 🃏", value: "> `lookup` `collection` `view`"})
+        .addFields({name: "Community Commands 💞", value: "> `x` `x` `x` `x`"})
+        .addFields({name: "Utils Commands ✔️", value: "> `help` `ping`"})
 
         // const embedGame = new EmbedBuilder()
         // .setColor("Blue")

@@ -60,22 +60,22 @@ module.exports = {
 
             collector.on('collect', async i => {
                 if(i.user.id !== interaction.user.id){
-                    return await i.reply({ content: `Only ${interaction.user.tag} can use these buttons!`, ephemeral: true});
+                    return await i.reply({ content: `Only ${interaction.user.globalName} can use these buttons!`, ephemeral: true});
                 } else {
                     if(i.customId === "A"){
-                        await i.update({content: "Drop preference changed to **Anime**", embeds: [], components: []})
+                        await i.update({content: `**${interaction.user.globalName}** drop preference changed to **Anime**`, embeds: [], components: []})
                         userProfile.preference = i.customId;
                         collector.stop();
                     }
     
                     if(i.customId === "K"){
-                        await i.update({content: "Drop preference changed to **Kpop**", embeds: [], components: []})
+                        await i.update({content: `**${interaction.user.globalName}** drop preference changed to **Kpop**`, embeds: [], components: []})
                         userProfile.preference = i.customId;
                         collector.stop()
                     }
     
                     if(i.customId === "AK"){
-                        await i.update({content: "Drop preference changed to **Anime & Kpop**", embeds: [], components: []})
+                        await i.update({content: `**${interaction.user.globalName}** drop preference changed to **Anime & Kpop**`, embeds: [], components: []})
                         userProfile.preference = i.customId;
                         collector.stop()
                     }

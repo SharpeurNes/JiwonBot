@@ -5,7 +5,19 @@ const userProfileModel = new Schema({
         type: String,
         required: true,
     },
-    balance: {
+    gold: {
+        type: Number,
+        default: 100,
+    },
+    ticket: {
+        type: Number,
+        default: 2,
+    },
+    dust: {
+        type: Number,
+        default: 0,
+    },
+    gem: {
         type: Number,
         default: 0,
     },

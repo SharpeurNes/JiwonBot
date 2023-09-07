@@ -12,7 +12,7 @@ module.exports = {
 
         try{
             let userProfile = await UserProfile.findOne({
-                userId: interaction.member.id,
+                userId: interaction.user.id,
             });
 
             if(!userProfile){
@@ -22,8 +22,8 @@ module.exports = {
 
             const embedWallet = new EmbedBuilder()
             .setColor("Purple")
-            .setAuthor({name: `${interaction.member.displayName} wallet`, iconURL: interaction.member.displayAvatarURL()})
-            .addFields({name: "Money", value: `${userProfile.balance} $`})
+            .setAuthor({name: `${interaction.user.displayName} wallet`, iconURL: interaction.user.displayAvatarURL()})
+            .addFields({name: "Money", value: `${userProfile.gold} $`})
 
             interaction.editReply({embeds: [embedWallet]});
 
