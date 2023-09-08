@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const CharacterData = require('../../Models/characterData');
 const CollectionData = require('../../Models/collection');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Embed, AttachmentBuilder } = require('discord.js');
+const Canvas = require('canvas');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -30,26 +31,53 @@ module.exports = {
             //trouver npm plugin pour générer des images
             // https://cdn.discordapp.com/attachments/648044573536550922/1146543251801788447/card.webp
 
+
+            //Génération image des 3 personnages
+            var canvas = Canvas.createCanvas(1008, 524);
+            ctx = canvas.getContext("2d");
+
+            var char1img = await Canvas.loadImage(`./Img/${dropChar[0].charId}.png`);
+            ctx.drawImage(char1img, 33, 97, 276, 381);
+
+            var char2img = await Canvas.loadImage(`./Img/${dropChar[1].charId}.png`);
+            ctx.drawImage(char2img, 377, 97, 276, 381);
+
+            var background = await Canvas.loadImage("./Img/gacha.png");
+            ctx.drawImage(background, 0, 0, 1008, 524);
+
+            ctx.font = "25px Arial";
+            ctx.fillStyle = "#ffffff";
+            ctx.textAlign = "center";
+            ctx.fillText(dropChar[0].name, 168, 98)
+            ctx.fillText(dropChar[1].name, 514, 98)
+
+            ctx.fillText("#"+dropChar[0].charId, 59, 478)
+            ctx.fillText("#"+dropChar[1].charId, 404, 478)
+
+
+            var attach = new AttachmentBuilder(canvas.toBuffer(), {name: "gacha.png"});
+
+            //bouton de choix
             const choseButton = new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
                     .setCustomId('g1')
-                    .setLabel('1')
-                    .setStyle(ButtonStyle.Success),
+                    .setLabel('1️⃣')
+                    .setStyle(ButtonStyle.Secondary),
 
                     new ButtonBuilder()
                     .setCustomId('g2')
-                    .setLabel('2')
-                    .setStyle(ButtonStyle.Success),
+                    .setLabel('2️⃣')
+                    .setStyle(ButtonStyle.Secondary),
 
                     new ButtonBuilder()
                     .setCustomId('g3')
-                    .setLabel('3')
-                    .setStyle(ButtonStyle.Success)
+                    .setLabel('3️⃣')
+                    .setStyle(ButtonStyle.Secondary)
                 )
 
 
-            const message = await interaction.editReply({content:`id ${dropChar[0].charId}, ${dropChar[0].name} \nid ${dropChar[1].charId}, ${dropChar[1].name} \nid ${dropChar[2].charId}, ${dropChar[2].name}`, components:[choseButton]});
+            const message = await interaction.editReply({components: [choseButton], files: [attach]});
 
             const collector = await message.createMessageComponentCollector({time: 30000});
 
@@ -60,21 +88,21 @@ module.exports = {
 
                 if(i.customId === 'g1'){
                     let idRandom = generateString(5);
-                    await i.update({content:`You successfully claim ${dropChar[0].name} uid: ||${idRandom}||`, embeds: [], components: []})
+                    await i.update({content:`You successfully claim ${dropChar[0].name} uid: ||${idRandom}||`, embeds: [], components: [], files: []})
                     gachaCollected(idRandom, dropChar[0], interaction.user.id, 2, interaction.user.globalName);
                     collector.stop();
                 }
 
                 if(i.customId === 'g2'){
                     let idRandom = generateString(5);
-                    await i.update({content:`You successfully claim ${dropChar[1].name} uid: ||${idRandom}||`, embeds: [], components: []})
+                    await i.update({content:`You successfully claim ${dropChar[1].name} uid: ||${idRandom}||`, embeds: [], components: [], files: []})
                     gachaCollected(idRandom, dropChar[1], interaction.user.id, 2, interaction.user.globalName);
                     collector.stop();
                 }
 
                 if(i.customId === 'g3'){
                     let idRandom = generateString(5);
-                    await i.update({content:`You successfully claim ${dropChar[2].name} uid: ||${idRandom}||`, embeds: [], components: []})
+                    await i.update({content:`You successfully claim ${dropChar[2].name} uid: ||${idRandom}||`, embeds: [], components: [], files: []})
                     gachaCollected(idRandom, dropChar[2], interaction.user.id, 2, interaction.user.globalName);
                     collector.stop();
                 }
@@ -113,6 +141,7 @@ async function gachaCollected(uid, char, idUser, rar, username){
         owner: username,
         charId: char.charId,
         uniqueId: uid,
+        border: "silver",
     })
 
     let charData = await CharacterData.findOne({charId: char.charId,});

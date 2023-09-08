@@ -41,7 +41,7 @@ module.exports = {
                 type = "Kpop"
             }
 
-            const file = new AttachmentBuilder(`./Img/${characterData.charId}.jpg`);
+            const file = new AttachmentBuilder(`./Img/${characterData.charId}.png`);
             const embedCharacter = new EmbedBuilder()
             .setColor("Purple")
             .setTitle('Character Lookup')
@@ -52,7 +52,7 @@ module.exports = {
             Total generated · **${characterData.generated}**
             Total in circulation · **${characterData.owned}**
             Total burned · **${characterData.burned}**`)
-            .setThumbnail(`attachment://${characterData.charId}.jpg`);
+            .setThumbnail(`attachment://${characterData.charId}.png`);
 
             interaction.editReply({embeds: [embedCharacter], files: [file]});
 
